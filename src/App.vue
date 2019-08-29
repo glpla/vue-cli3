@@ -2,22 +2,35 @@
   <div id="app">
     <Header title="welcome" :sub-title="msg" @onGetMsg="getMsg"></Header>
     <div id="nav">
-      <router-link class="nav-item" to="/">Home</router-link>|
-      <router-link class="nav-item" to="/query?gender=male">?Query</router-link>|
-      <router-link class="nav-item" :to="{name:'download',params:{tips:router}}">Download</router-link>|
-      <router-link class="nav-item" to="/colons/glpla">:Colons</router-link>|
-      <router-link class="nav-item" to="/nest" :class="{'router-link-exact-active':isNest}">Nest</router-link>
+      <router-link class="nav-item" to="/">
+        <span class="iconfont iconhome2"></span>
+        <div>首页</div>
+      </router-link>
+      <router-link class="nav-item" to="/reco">
+        <span class="iconfont iconyiguanzhu"></span>
+        <div>推荐</div>
+      </router-link>
+      <router-link class="nav-item" to="/message">
+        <span class="iconfont iconshuru"></span>
+        <div>留言</div>
+      </router-link>
+      <router-link class="nav-item" to="/order">
+        <span class="iconfont icongwc"></span>
+        <div>订单</div>
+      </router-link>
+      <router-link class="nav-item" to="/mine" :class="{'active':isNest}">
+        <span class="iconfont iconkefuyouxian"></span>
+        <div>我的</div>
+      </router-link>
     </div>
     <div>{{newMsg}}</div>
-    <div class="nav-box">
-      <router-view class="cont-nav"/>
-    </div>
-    <Footer></Footer>
+    <transition mode="out-in">
+      <router-view class="cont"/>
+    </transition>
   </div>
 </template>
 <script>
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 export default {
   name: "App",
   data() {
@@ -35,13 +48,12 @@ export default {
     }
   },
   components: {
-    Header,
-    Footer
+    Header
   },
   watch: {
     $route(to) {
-      // window.console.log(to);
-      if (to.path == "/nest/nest0" || to.path == "/nest/nest1") {
+      window.console.log(to);
+      if (to.path == "/mine/nest0" || to.path == "/mine/nest1") {
         this.isNest = true;
       } else {
         this.isNest = false;
@@ -52,11 +64,22 @@ export default {
 </script>
 
 <style>
+@import "./assets/css/iconfont.css";
 body {
   color: #999;
+  margin: 0;
+  background: #fdfdfd;
 }
 div {
   box-sizing: border-box;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -66,23 +89,46 @@ div {
   color: #2c3e50;
 }
 #nav {
-  margin-top: 1rem;
+  width: 100%;
   padding: 0.2rem;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  left: 0;
+  bottom: 0;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
 a.nav-item {
   padding: 0.2rem;
-  font-weight: bold;
 }
-a.router-link-exact-active {
-  color: #42b983;
+a.router-link-active {
+  color: #ce4e56;
 }
-.nav-box {
+a.nav-item span {
+  font-size: 1.6rem;
+}
+.active {
+  color: #ce4e56;
+}
+.view-box {
   width: 100%;
   margin-top: 1rem;
+  display: flex;
+}
+.view-box .side {
+  flex: 1;
+  background: #eee;
+}
+.view-box .cont {
+  flex: 5;
+}
+.v-enter-active,
+.v-leave-active {
+  opacity: 1;
+  transition: all 0.2s;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

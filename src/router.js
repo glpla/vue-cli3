@@ -1,48 +1,49 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home.vue'
-import Download from '@/components/Download.vue'
-// import Sidebar from '@/components/Sidebar.vue'
-import Nest from '@/components/Nest.vue'
+import Message from '@/views/Message.vue'
+import Reco from '@/views/Reco.vue'
+import Order from '@/views/Order.vue'
+import Mine from '@/views/Mine.vue'
+import Nest0 from '@/components/Nest0.vue'
+import Nest1 from '@/components/Nest1.vue'
 
 Vue.use(Router)
 
 export default new Router({
   // mode: 'history',
+  linkExactActiveClass: 'active',
   routes: [{
     path: '/',
     name: 'home',
     component: Home
   }, {
-    path: '/query',
-    name: 'query',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "query" */ '@/views/Query.vue')
+    path: '/reco',
+    name: 'reco',
+    component: Reco
   }, {
-    path: '/download',
-    name: 'download',
-    component: Download
+    path: '/message',
+    name: 'message',
+    component: Message
   }, {
-    path: '/colons/:id',
-    name: 'colons',
-    component: () => import('@/components/Colons.vue')
+    path: '/order',
+    name: 'order',
+    component: Order
   }, {
-    path: '/nest',
-    name: 'nest',
-    component: Nest,
+    path: '/mine',
+    name: 'mine',
+    component: Mine,
     redirect: {
       name: 'nest0'
     },
     children: [{
       path: 'nest0',
       name: 'nest0',
-      component: () => import('@/components/Nest0.vue')
+      component: Nest0
     }, {
       path: 'nest1',
       name: 'nest1',
-      component: () => import('@/components/Nest1.vue')
+      component: Nest1.vue
     }]
   }]
 })
