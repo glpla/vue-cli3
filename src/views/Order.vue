@@ -1,6 +1,7 @@
 <template>
-  <div class="wrap">
+  <div class="order">
     <h1>Order page</h1>
+    <div>this.$route.query.id: {{this.$route.query.id}}</div>
   </div>
 </template>
 <script>
@@ -27,3 +28,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.order {
+  background: #f40;
+}
+</style>

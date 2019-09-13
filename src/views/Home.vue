@@ -1,18 +1,28 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <header-search/>
+    <home-swiper/>
+    <home-nav/>
+    <home-reco/>
+    <home-weekend/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld";
-
+/* eslint-disable */
+import HeaderSearch from "@/components/HeaderSearch";
+import HomeSwiper from "@/components/HomeSwiper";
+import HomeNav from "@/components/HomeNav";
+import HomeReco from "@/components/HomeReco";
+import HomeWeekend from "@/components/HomeWeekend";
 export default {
   name: "home",
   components: {
-    HelloWorld
+    HeaderSearch,
+    HomeSwiper,
+    HomeNav,
+    HomeReco,
+    HomeWeekend
   }
 };
 </script>

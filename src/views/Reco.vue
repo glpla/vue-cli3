@@ -1,6 +1,9 @@
 <template>
   <div class="reco">
-    <h1>recommend page</h1>
+    <div class="wrap">
+      <span class="iconfont iconfanhui back-btn"></span>
+    </div>
+    <div>{{this.$route.params.tips}}-{{this.$route.params.id}}</div>
   </div>
 </template>
 <script>
@@ -16,4 +19,11 @@ export default {
   mounted() {}
 };
 </script>
+
+<style scoped>
+.reco {
+  background: #f40;
+}
+</style>
+
 

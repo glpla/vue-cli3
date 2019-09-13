@@ -1,36 +1,31 @@
 <template>
   <div id="app">
-    <Header title="welcome" :sub-title="msg" @onGetMsg="getMsg"></Header>
-    <div id="nav">
-      <router-link class="nav-item" to="/">
-        <span class="iconfont iconhome2"></span>
+    <router-view class="cont"/>
+    <div class="nav">
+      <router-link class="nav-item" to="/" exact>
+        <span class="iconfont iconshouye"></span>
         <div>首页</div>
       </router-link>
-      <router-link class="nav-item" to="/reco">
+      <router-link class="nav-item" :to="{name:'reco',params:{tips:'hello,reco',id:'glpla'}}">
         <span class="iconfont iconyiguanzhu"></span>
         <div>推荐</div>
       </router-link>
-      <router-link class="nav-item" to="/message">
+      <router-link class="nav-item" to="/message/cnplaman">
         <span class="iconfont iconshuru"></span>
         <div>留言</div>
       </router-link>
-      <router-link class="nav-item" to="/order">
+      <router-link class="nav-item" to="/order?id=54414">
         <span class="iconfont icongwc"></span>
         <div>订单</div>
       </router-link>
-      <router-link class="nav-item" to="/mine" :class="{'active':isNest}">
+      <router-link class="nav-item" to="/mine" :class="{'router-link-exact-active':isNest}">
         <span class="iconfont iconkefuyouxian"></span>
         <div>我的</div>
       </router-link>
     </div>
-    <div>{{newMsg}}</div>
-    <transition mode="out-in">
-      <router-view class="cont"/>
-    </transition>
   </div>
 </template>
 <script>
-import Header from "@/components/Header";
 export default {
   name: "App",
   data() {
@@ -38,7 +33,9 @@ export default {
       msg: "54414",
       newMsg: "for receiving data form About...",
       router: "data in App.vue",
-      isNest: false
+      isNest: false,
+      curNavIndex: 0,
+      isRoot: false
     };
   },
   methods: {
@@ -47,12 +44,11 @@ export default {
       // window.console.log(e);
     }
   },
-  components: {
-    Header
-  },
   watch: {
-    $route(to) {
-      window.console.log(to);
+    $route(to, from) {
+      window.console.log(to, from);
+      window.console.log(to.path == "/");
+      this.isRoot = to.path == "/";
       if (to.path == "/mine/nest0" || to.path == "/mine/nest1") {
         this.isNest = true;
       } else {
@@ -64,7 +60,6 @@ export default {
 </script>
 
 <style>
-@import "./assets/css/iconfont.css";
 body {
   color: #999;
   margin: 0;
@@ -85,50 +80,37 @@ a {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  /* text-align: center; */
 }
-#nav {
+.nav {
   width: 100%;
-  padding: 0.2rem;
+  padding: 0.1rem;
   display: flex;
   justify-content: space-around;
   position: fixed;
   left: 0;
   bottom: 0;
+  background: rgba(253, 253, 253, 1);
 }
-
 a.nav-item {
-  padding: 0.2rem;
+  padding: 0.1rem;
+  color: #999;
 }
-a.router-link-active {
+a.router-link-active,
+a.router-link-exact-active {
   color: #ce4e56;
 }
 a.nav-item span {
-  font-size: 1.6rem;
+  font-size: 0.4rem;
 }
-.active {
-  color: #ce4e56;
-}
-.view-box {
-  width: 100%;
-  margin-top: 1rem;
-  display: flex;
-}
-.view-box .side {
-  flex: 1;
-  background: #eee;
-}
-.view-box .cont {
-  flex: 5;
+.v-enter,
+.v-leave-to {
+  opacity: 0;
 }
 .v-enter-active,
 .v-leave-active {
   opacity: 1;
   transition: all 0.2s;
-}
-.v-enter,
-.v-leave-to {
-  opacity: 0;
 }
 </style>
